@@ -25,6 +25,12 @@ app.get("/users", async (req, res) => {
     const users = await usersResource.find();
     res.status(200).json(users);
 });
+// 「GET /users/:id」のルーティングと処理を記述
+app.get("/users/:id", async (req, res) => {
+    const id = req.params.id
+    const users = await usersResource.find({ _id: id });
+    res.status(200).json(users);
+});
 // 「POST /users」のルーティングと処理を記述
 app.post("/users", async (req, res) => {
     const body = req.body;
@@ -63,7 +69,7 @@ app.delete("/users/:id", async (req, res) => {
 // Express を立ち上げるポート番号
 const EXPRESS_PORT = 3000;
 // Mongoose のコネクションストリング
-const MONGOOSE_URI = "mongodb://root:password@localhost:27017/test?authSource=admin";
+const MONGOOSE_URI = "mongodb://root:password@localhost:27017/users?authSource=admin";
 
 (async function main() {
     // MongoDB への接続
